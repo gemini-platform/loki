@@ -882,7 +882,7 @@ github.com/grafana/loki/pkg/push
 ## explicit; go 1.17
 github.com/grafana/regexp
 github.com/grafana/regexp/syntax
-# github.com/grafana/tail v0.0.0-20230510142333-77b18831edf0
+# github.com/grafana/tail v0.0.0-20230510142333-77b18831edf0 => github.com/gemini-platform/tail v0.0.0-20230815112116-7efd67f81059
 ## explicit; go 1.13
 github.com/grafana/tail
 github.com/grafana/tail/ratelimiter
@@ -2135,6 +2135,7 @@ sigs.k8s.io/structured-merge-diff/v4/value
 # sigs.k8s.io/yaml v1.3.0
 ## explicit; go 1.12
 sigs.k8s.io/yaml
+# github.com/grafana/tail => github.com/gemini-platform/tail v0.0.0-20230815112116-7efd67f81059
 # github.com/Azure/azure-sdk-for-go => github.com/Azure/azure-sdk-for-go v36.2.0+incompatible
 # github.com/Azure/azure-storage-blob-go => github.com/MasslessParticle/azure-storage-blob-go v0.14.1-0.20220216145902-b5e698eff68e
 # github.com/hashicorp/consul => github.com/hashicorp/consul v1.5.1

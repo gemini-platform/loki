@@ -1,6 +1,8 @@
 module github.com/grafana/loki
 
-go 1.20
+go 1.19
+
+replace github.com/grafana/tail => github.com/gemini-platform/tail v0.0.0-20230815112116-7efd67f81059
 
 require (
 	cloud.google.com/go/bigtable v1.18.1
