@@ -1,0 +1,50 @@
+################################################################################
+#       环境：ci/cd pipeline
+#       说明：跳过pipeline `git commit –m “first commit [CI SKIP]”`
+################################################################################
+kind: pipeline
+type: docker
+name: pipeline
+clone:
+  skip_verify: true
+
+trigger:
+  event:
+    exclude:
+      - pull_request
+
+volumes:
+  - name: cache-go-pkg
+    host:
+      path: /tmp/drone/go/pkg
+  - name: cache-go-build
+    host:
+      path: /tmp/drone/go-build
+  - name: var-run
+    host:
+      path: /var/run/
+
+steps:
+  - name: build-promtail-image
+    image: harbor.gemini.com/gemini-platform/plugins-docker:20
+    volumes:
+      - name: var-run
+        path: /var/run/
+    settings:
+      daemon_off: true
+      purge: false
+      repo: harbor.gemini.com/gemini-platform/promtail
+      config:
+        from_secret: HARBOR_AUTH_ADMIN_CONFIG
+      commands:
+        - make promtail-image
+
+  - name: notify
+    image: harbor.gemini.com/gemini-platform/drone-wechat-notify:latest
+    settings:
+      key:
+        from_secret: wechat_robot_key
+    when:
+      status:
+        - success
+        - failure
