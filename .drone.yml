@@ -37,6 +37,7 @@ steps:
       config:
         from_secret: HARBOR_AUTH_ADMIN_CONFIG
       commands:
+        - cd /drone/src/
         - make promtail-image
 
   - name: notify
