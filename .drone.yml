@@ -25,20 +25,14 @@ volumes:
       path: /var/run/
 
 steps:
-  - name: build-promtail-image
-    image: harbor.gemini.com/gemini-platform/plugins-docker:20
-    volumes:
-      - name: var-run
-        path: /var/run/
-    settings:
-      daemon_off: true
-      purge: false
-      repo: harbor.gemini.com/gemini-platform/promtail
-      config:
-        from_secret: HARBOR_AUTH_ADMIN_CONFIG
-      commands:
-        - cd /drone/src/
-        - make promtail-image
+  # Build Promtail Docker image
+  - name: build-promtail
+    image: docker:dind
+    config:
+      from_secret: HARBOR_AUTH_ADMIN_CONFIG
+    commands:
+      - cd /drone/src/
+      - make promtail-image
 
   - name: notify
     image: harbor.gemini.com/gemini-platform/drone-wechat-notify:latest
@@ -49,3 +43,9 @@ steps:
       status:
         - success
         - failure
+
+# Service settings for Docker-in-Docker
+services:
+  - name: docker
+    image: docker:dind
+    privileged: true
